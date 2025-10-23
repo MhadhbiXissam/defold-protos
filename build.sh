@@ -18,12 +18,14 @@ echo "* download defold sdk "
 wget "$linksdk"
 echo "* extracting defold sdk " 
 unzip -o defoldsdk.zip && rm defoldsdk.zip 
-echo "* copying proto files to  defoldsdk-$version" 
-folder="defoldsdk-$version"
+echo "* copying proto files to  defoldsdk" 
+folder="defoldsdk"
 if [ ! -d "$folder" ]; then
     mkdir -p "$folder"
 else
-    echo "Folder '$folder' already exists"
+    rm -r "$folder"
+    mkdir -p "$folder"
+
 fi
 cp -r defoldsdk/share/proto/*  $folder 
 rm -rf defoldsdk
