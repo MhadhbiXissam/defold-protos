@@ -1,13 +1,12 @@
-# defold-protos
-defold game engine proto files , bash script to get proto files downloaded 
-
-```bash
 #!/bin/bash
 set -euo pipefail
+
 version=1.11.1
 linksdk="https://github.com/defold/defold/releases/download/$version/defoldsdk.zip"  
 linkbob="https://github.com/defold/defold/releases/download/$version/bob.jar"
+
 commands=("wget" "unzip")
+
 for cmd in "${commands[@]}"; do
     if command -v "$cmd" >/dev/null 2>&1; then
         echo "  👍 : $cmd is installed"
@@ -28,4 +27,3 @@ else
 fi
 cp -r defoldsdk/share/proto/*  $folder 
 rm -rf defoldsdk
-```
