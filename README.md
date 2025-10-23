@@ -18,22 +18,27 @@ for cmd in "${commands[@]}"; do
         echo "  ❌ : $cmd is not installed"
     fi
 done
-echo "* download defold sdk " 
+echo "🗑️ download defold sdk " 
 wget "$linksdk"
-echo "* extracting defold sdk " 
+
+
+echo "🗑️ extracting defold sdk " 
 folder="defold-sdk"
 if [ ! -d "$folder" ]; then
     mkdir -p "$folder"
+    unzip -o defoldsdk.zip && rm defoldsdk.zip 
 else
     rm -r "$folder"
     mkdir -p "$folder"
-
+    unzip -o defoldsdk.zip && rm defoldsdk.zip 
 fi
-unzip -o defoldsdk.zip && rm defoldsdk.zip 
-echo "* copying proto files to  defoldsdk" 
+
+
+echo "🗑️ copying proto files to  defold-sdk" 
+cp -r defoldsdk/share/proto/*  $folder
+cp -r defoldsdk/ext/include/google $folder/
+echo "🗑️ protoc bins" 
 mkdir -p bin || true 
-cp -r defoldsdk/share/proto/*  bin/
-cp -r defoldsdk/ext/bin/* .
-cp -r defoldsdk/ext/include/google/*.proto $folder/google
+cp -r defoldsdk/ext/bin/* bin/
 rm -rf defoldsdk
 ```
