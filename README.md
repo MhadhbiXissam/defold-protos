@@ -1,6 +1,6 @@
 # defold-protos
-defold game engine proto files , bash script to get proto files downloaded 
-
+defold game engine proto files , bash script to get proto files downloaded .  
+check branches in this repo for already downloaded proto files along side with bin of protoc used .
 ```bash
 #!/bin/bash
 set -euo pipefail
