@@ -4,10 +4,13 @@ defold game engine proto files , bash script to get proto files downloaded
 ```bash
 #!/bin/bash
 set -euo pipefail
+
 version=1.11.1
 linksdk="https://github.com/defold/defold/releases/download/$version/defoldsdk.zip"  
 linkbob="https://github.com/defold/defold/releases/download/$version/bob.jar"
+
 commands=("wget" "unzip")
+
 for cmd in "${commands[@]}"; do
     if command -v "$cmd" >/dev/null 2>&1; then
         echo "  👍 : $cmd is installed"
@@ -15,17 +18,27 @@ for cmd in "${commands[@]}"; do
         echo "  ❌ : $cmd is not installed"
     fi
 done
-echo "* download defold sdk " 
+echo "🗑️ download defold sdk " 
 wget "$linksdk"
-echo "* extracting defold sdk " 
-unzip -o defoldsdk.zip && rm defoldsdk.zip 
-echo "* copying proto files to  defoldsdk-$version" 
-folder="defoldsdk-$version"
+
+
+echo "🗑️ extracting defold sdk " 
+folder="defold-sdk"
 if [ ! -d "$folder" ]; then
     mkdir -p "$folder"
+    unzip -o defoldsdk.zip && rm defoldsdk.zip 
 else
-    echo "Folder '$folder' already exists"
+    rm -r "$folder"
+    mkdir -p "$folder"
+    unzip -o defoldsdk.zip && rm defoldsdk.zip 
 fi
-cp -r defoldsdk/share/proto/*  $folder 
+
+
+echo "🗑️ copying proto files to  defold-sdk" 
+cp -r defoldsdk/share/proto/*  $folder
+cp -r defoldsdk/ext/include/google $folder/
+echo "🗑️ protoc bins" 
+mkdir -p bin || true 
+cp -r defoldsdk/ext/bin/* bin/
 rm -rf defoldsdk
 ```
